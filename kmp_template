@@ -1,0 +1,70 @@
+#include<iostream>
+#include<string.h>
+#define maxn 1000000+5
+#define maxn2 10000+5
+using namespace std;
+
+int s[maxn];
+int p[maxn2];
+int Next[maxn2];
+void getNext(const int p[],int Next[],int plen) {
+    Next[0]=-1;
+    int k=-1;
+    int j=0;
+    while(j<plen-1) {
+        if(k==-1||p[k]==p[j]) {
+            ++k;
+            ++j;
+            if(p[k]!=p[j])
+                Next[j] = k;
+            else
+                Next[j] = Next[k];//修正nNext数组
+
+        }
+
+        else {
+            k = Next[k];
+        }
+    }
+}
+
+int KMP(const int s[],const int p[],int slen,int plen) {
+
+    int i=0;
+    int j=0;
+    while(i<slen&&j<plen) {
+        if(j==-1||s[i]==p[j]) {
+            i++;
+            j++;
+        } else {
+            j = Next[j];
+        }
+    }
+
+    if(j>=plen) {
+        return i-j+1;
+    } else {
+        return -1;
+    }
+
+}
+
+int main() {
+    int T;
+    scanf("%d",&T);
+    while(T--) {
+        int num1,num2;
+        cin>>num1;
+        cin>>num2;
+        for(int i=0; i<num1; i++)
+            scanf("%d",&s[i]);
+        for(int i=0; i<num2; i++)
+            scanf("%d",&p[i]);
+        memset(Next,-1,sizeof(Next));
+        getNext(p,Next,num2);
+        //cout<<*Next<<endl;
+        cout<<KMP(s,p,num1,num2)<<endl;
+    }
+
+    return 0;
+}
