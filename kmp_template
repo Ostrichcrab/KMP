@@ -1,3 +1,4 @@
+//hdu 1711
 #include<iostream>
 #include<string.h>
 #define maxn 1000000+5
