@@ -52,4 +52,4 @@ memset(res,0,sizeof(res));
 //	printf("%lld\n",ans);
 	return 0;
 }
-![样例演示]https://github.com/Ostrichcrab/KMP/blob/master/2%5DZ%25YTCWW%40F2731F%7B%60FGE%60O.png
+![样例演示](https://github.com/Ostrichcrab/KMP/blob/master/2%5DZ%25YTCWW%40F2731F%7B%60FGE%60O.png)
