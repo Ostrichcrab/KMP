@@ -4,73 +4,43 @@ KMP，next表示模式串如果第i位(设str[0]为第0位)与文本串第j位�
 所以思路和上面一样，如果n%（n-next[n]）==0,则存在重复连续子串，长度为n-next[n]。
 */
 // poj 2406
-#include<iostream>
-#include<string.h>
-#define maxn 1000000+5
-#define maxn2 10000+5
+#include<stdio.h>
+#include <string.h>
 using namespace std;
-
-int s[maxn];
-int p[maxn2];
-int Next[maxn2];
-void getNext(const int p[],int Next[],int plen) {
-    Next[0]=-1;
-    int k=-1;
-    int j=0;
-    while(j<plen-1) {
-        if(k==-1||p[k]==p[j]) {
+int next[1000005];
+char p[1000005];
+int pLen;
+void getNext()
+{
+    next[0] = -1;
+    int k = -1;
+    int j = 0;
+    while (j <=pLen-1)
+    {
+        if (k == -1 || p[j] == p[k])
+        {
             ++k;
             ++j;
-            if(p[k]!=p[j])
-                Next[j] = k;
-            else
-                Next[j] = Next[k];//修正nNext数组
-
+            next[j] = k;
         }
-
-        else {
-            k = Next[k];
+        else
+        {
+            k = next[k];
         }
     }
 }
-
-int KMP(const int s[],const int p[],int slen,int plen) {
-
-    int i=0;
-    int j=0;
-    while(i<slen&&j<plen) {
-        if(j==-1||s[i]==p[j]) {
-            i++;
-            j++;
-        } else {
-            j = Next[j];
-        }
+int main()
+{
+  while(scanf("%s",p)!=EOF)
+    {
+        if(p[0]=='.')
+            break;
+        pLen=strlen(p);
+        getNext();
+        if(pLen%(pLen-next[pLen])==0)
+            printf("%d\n",pLen/(pLen-next[pLen]));
+        else
+            printf("1\n");
     }
-
-    if(j>=plen) {
-        return i-j+1;
-    } else {
-        return -1;
-    }
-
-}
-
-int main() {
-    int T;
-    scanf("%d",&T);
-    while(T--) {
-        int num1,num2;
-        cin>>num1;
-        cin>>num2;
-        for(int i=0; i<num1; i++)
-            scanf("%d",&s[i]);
-        for(int i=0; i<num2; i++)
-            scanf("%d",&p[i]);
-        memset(Next,-1,sizeof(Next));
-        getNext(p,Next,num2);
-        //cout<<*Next<<endl;
-        cout<<KMP(s,p,num1,num2)<<endl;
-    }
-
     return 0;
 }
