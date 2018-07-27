@@ -3,6 +3,7 @@ KMP，next表示模式串如果第i位(设str[0]为第0位)与文本串第j位�
 则模式串第1位到next[n]与模式串第n-next[n]位到n位是匹配的。
 所以思路和上面一样，如果n%（n-next[n]）==0,则存在重复连续子串，长度为n-next[n]。
 */
+// poj 2406
 #include<iostream>
 #include<string.h>
 #define maxn 1000000+5
